@@ -1,39 +1,20 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
+import Chat from "./pages/Chat";
 
-function App() {
-  const [input, setInput] = useState("");
-  const [messages, setMessages] = useState([]);
-
-  const sendMessage = async () => {
-    const res = await fetch("http://localhost:8000/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user_input: input }),
-    });
-
-    const data = await res.json();
-    setMessages([
-      ...messages,
-      { role: "user", text: input },
-      { role: "bot", text: data.response },
-    ]);
-    setInput("");
-  };
-
+function App({ isDarkMode, setIsDarkMode }) {
   return (
-    <div style={{ padding: 20 }}>
-      <h1>🩺 Health Chatbot</h1>
-      {messages.map((msg, i) => (
-        <div key={i}>
-          <strong>{msg.role}:</strong> {msg.text}
-        </div>
-      ))}
-      <input value={input} onChange={(e) => setInput(e.target.value)} />
-      <button onClick={sendMessage}>Send</button>
-    </div>
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Login isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+          }
+        />
+        <Route path="/chat" element={<Chat />} />
+      </Routes>
+    </Router>
   );
 }
 
