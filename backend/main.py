@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import chat
+from routers import auth, chat
 
 app = FastAPI(title="Health AI Chatbot")
 
@@ -14,4 +14,5 @@ app.add_middleware(
 )
 
 # Register chat router
+app.include_router(auth.router)
 app.include_router(chat.router)
