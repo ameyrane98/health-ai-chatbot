@@ -1,6 +1,13 @@
-import React, { useState } from "react";
-import { Box, TextField, Button, Alert, useTheme } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import {
+  Box,
+  TextField,
+  Button,
+  Alert,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import { useNavigate, Link } from "react-router-dom";
 import AuthCard from "../components/AuthCard";
 import ThemeToggle from "../components/ThemeToggle";
 
@@ -36,11 +43,9 @@ export default function Login({ isDarkMode, setIsDarkMode }) {
     <Box
       sx={{
         minHeight: "100vh",
-        width: "100%",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        position: "relative",
         background:
           theme.palette.mode === "light"
             ? "linear-gradient(135deg, #e0f7fa, #e0f2f1)"
@@ -53,13 +58,8 @@ export default function Login({ isDarkMode, setIsDarkMode }) {
           onChange={() => setIsDarkMode(!isDarkMode)}
         />
       </Box>
-
       <AuthCard title="Welcome Back!" subtitle="Sign in to your health coach">
-        {error && (
-          <Alert severity="error" sx={{ mb: 2 }}>
-            {error}
-          </Alert>
-        )}
+        {error && <Alert severity="error">{error}</Alert>}
         <TextField
           fullWidth
           margin="normal"
@@ -83,6 +83,9 @@ export default function Login({ isDarkMode, setIsDarkMode }) {
         >
           Sign In
         </Button>
+        <Typography variant="body2" sx={{ mt: 2, textAlign: "center" }}>
+          Don't have an account? <Link to="/register">Sign up here</Link>
+        </Typography>
       </AuthCard>
     </Box>
   );
